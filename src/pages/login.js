@@ -1,39 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 
 const matchPassword = 'password'
 const matchEmail = 'patebry@gmail.com'
 
 function Login({ setPath }) {
-  //   const [email, setEmail] = useState('')
-  //   const [password, setPassword] = useState('')
+  const [showError, setShowError] = useState(false)
   return (
-    <form
-      onSubmit={e => {
-        e.preventDefault()
-        const [email, password] = e.target
-        if (email.value === matchEmail && password.value === matchPassword) {
-          setPath('movies')
-        } else {
-          console.log('bad credientials')
-        }
-      }}
-    >
-      <input
-        type='email'
-        // value={email}
-        // onChange={e => {
-        //   setEmail(e.target.value)
-        // }}
-      />
-      <input
-        type='password'
-        // value={password}
-        // onChange={e => {
-        //   setPassword(e.target.value)
-        // }}
-      />
-      <button type='submit'>Login</button>
-    </form>
+    <Fragment>
+      <form
+        onSubmit={e => {
+          e.preventDefault()
+          const [email, password] = e.target
+          if (email.value === matchEmail && password.value === matchPassword) {
+            setPath('movies')
+          } else {
+            setShowError(true)
+            setTimeout(() => {
+              setShowError(false)
+            }, 5000)
+          }
+        }}
+      >
+        <input placeholder='email' name='email' />
+        <br />
+        <br />
+        <input type='password' name='password' placeholder='password' />
+        <br />
+        <br />
+        <button type='submit'>Login</button>
+      </form>
+      {showError && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            right: 0,
+            backgroundColor: 'black',
+            color: 'white',
+            padding: '16px'
+          }}
+        >
+          Bad Email and Password
+        </div>
+      )}
+    </Fragment>
   )
 }
 
