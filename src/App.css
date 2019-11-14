@@ -17,3 +17,14 @@
 .App-link {
   color: #09d3ac;
 }
+
+.movieWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movieCard {
+  margin: 16px;
+  padding: 8px;
+  background-color: red;
+}
