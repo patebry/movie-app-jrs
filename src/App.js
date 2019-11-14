@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Header from './components/header'
 import Movie from './components/movie'
+import Undo from './components/undo'
 import defaultMovies from './defaultMovies.json'
 import './App.css'
 
@@ -13,7 +14,11 @@ const defaultNewMovie = {
 function App() {
   const [movies, setMovies] = useState(defaultMovies)
   const [newMovie, setNewMovie] = useState(defaultNewMovie)
-  console.log(movies)
+  const [oldData, setOldData] = useState([])
+  const [showUndo, setShowUndo] = useState(false)
+  const undo = () => {
+    setMovies(oldData)
+  }
   return (
     <div className='App'>
       <Header />
@@ -50,12 +55,27 @@ function App() {
                 data={x}
                 key={i}
                 removeMovie={id => {
+                  setShowUndo(true)
+                  setTimeout(() => {
+                    setShowUndo(false)
+                  }, 5000)
+                  if (!showUndo) {
+                    setOldData(movies)
+                  }
                   setMovies(movies.filter(x => x.id !== id))
                 }}
               />
             )
           })}
       </div>
+      {showUndo && (
+        <Undo
+          onYes={e => {
+            setShowUndo(false)
+            undo()
+          }}
+        />
+      )}
     </div>
   )
 }
