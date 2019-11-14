@@ -21,10 +21,10 @@ function Login({ setPath }) {
           }
         }}
       >
-        <input placeholder='email' name='email' />
+        <input placeholder='email' />
         <br />
         <br />
-        <input type='password' name='password' placeholder='password' />
+        <input type='password' placeholder='password' />
         <br />
         <br />
         <button type='submit'>Login</button>
