@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header from './components/header'
+import Movie from './components/movie'
 import defaultMovies from './defaultMovies.json'
 import './App.css'
 
@@ -21,7 +22,7 @@ function App() {
         onSubmit={e => {
           e.preventDefault()
           e.persist()
-          setMovies([...movies, newMovie])
+          setMovies([newMovie, ...movies])
           setNewMovie(defaultNewMovie)
         }}
       >
@@ -45,9 +46,13 @@ function App() {
           movies.length > 0 &&
           movies.map((x, i) => {
             return (
-              <div key={i} className='movieCard'>
-                {x.title}
-              </div>
+              <Movie
+                data={x}
+                key={i}
+                removeMovie={id => {
+                  setMovies(movies.filter(x => x.id !== id))
+                }}
+              />
             )
           })}
       </div>
