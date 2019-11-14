@@ -3,31 +3,43 @@ import Header from './components/header'
 import defaultMovies from './defaultMovies.json'
 import './App.css'
 
+const defaultNewMovie = {
+  title: '',
+  id: Math.random(),
+  rank: null
+}
+
 function App() {
   const [movies, setMovies] = useState(defaultMovies)
-  const [newMovie, setNewMovie] = useState({
-    title: '',
-    id: Math.random(),
-    rank: null
-  })
+  const [newMovie, setNewMovie] = useState(defaultNewMovie)
   console.log(movies)
   return (
     <div className='App'>
       <Header />
       <div>{movies.length}</div>
-      <input
-        type='text'
-        name='title'
-        value={newMovie.title}
-        placeholder='title'
-        onChange={e => {
+      <form
+        onSubmit={e => {
+          e.preventDefault()
           e.persist()
-          setNewMovie({
-            ...newMovie,
-            title: e.target.value
-          })
+          setMovies([...movies, newMovie])
+          setNewMovie(defaultNewMovie)
         }}
-      />
+      >
+        <input
+          type='text'
+          name='title'
+          value={newMovie.title}
+          placeholder='title'
+          onChange={e => {
+            e.persist()
+            setNewMovie({
+              ...newMovie,
+              title: e.target.value
+            })
+          }}
+        />
+        <button type='submit'>Submit</button>
+      </form>
       <div className='movieWrapper'>
         {movies &&
           movies.length > 0 &&
