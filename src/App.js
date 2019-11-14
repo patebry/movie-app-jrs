@@ -16,7 +16,7 @@ const whatToShow = (page, setPath) => {
 }
 
 function App() {
-  const [path, setPath] = useState('login')
+  const [path, setPath] = useState('movies')
 
   return (
     <div className='App'>

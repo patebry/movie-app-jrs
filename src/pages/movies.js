@@ -15,6 +15,7 @@ function Movies() {
   const [oldData, setOldData] = useState([])
   const [showUndo, setShowUndo] = useState(false)
   const [search, setSearch] = useState('')
+  const [image, setImage] = useState(null)
 
   const undo = () => {
     setMovies(oldData)
@@ -61,6 +62,26 @@ function Movies() {
           />
         </form>
       </Fragment>
+      <br />
+      <br />
+      <input
+        type='file'
+        id='search-file'
+        // accept='.txt'
+        onChange={e => {
+          const fileReader = new FileReader()
+          fileReader.onload = e => {
+            setImage(e.target.result)
+            console.log(e.target.result)
+          }
+          fileReader.readAsDataURL(e.target.files[0])
+        }}
+      ></input>
+      <br />
+      <br />
+      {image && (
+        <img src={image} alt='text' style={{ width: '100%', height: '100%' }} />
+      )}
       <div className='movieWrapper'>
         {movies &&
           movies.length > 0 &&
